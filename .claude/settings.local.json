@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(.venv/bin/python -c ' *)",
+      "Bash(.venv/bin/python -m pytest --tb=short -q)",
+      "Bash(curl -s \"https://cdn.roboflow.com/0.2.26/roboflow.js\")",
+      "Bash(curl -o /dev/null -s -w \"HTTP %{http_code}\" \"https://cdn.roboflow.com/0.2.26/roboflow.js\")"
+    ]
+  }
+}

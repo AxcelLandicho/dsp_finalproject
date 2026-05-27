@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Student Head Grooming Gate Check</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="brand-lockup">
+          <div class="school-seal" aria-hidden="true">SG</div>
+          <div>
+            <h1>School Gate Head Grooming Check</h1>
+            <p id="modelStatus">Checking inference service…</p>
+          </div>
+          <span class="version-badge" title="System version">v2.0.0</span>
+        </div>
+        <div class="topbar-actions">
+          <div id="clock" class="clock">--:--:--</div>
+        </div>
+      </header>
+
+      <main class="workspace">
+        <!-- ── LEFT COLUMN: camera + controls ────────────────────────── -->
+        <section class="camera-panel" aria-label="Photo check station">
+
+          <!-- API settings -->
+          <section class="settings-panel" aria-label="Inference settings">
+            <label>
+              <span>API Key</span>
+              <input id="roboflowApiKey" type="password" autocomplete="off" placeholder="Roboflow API key" />
+            </label>
+            <label>
+              <span>Project ID / Version</span>
+              <input id="roboflowProjectId" type="text" autocomplete="off" placeholder="project-slug/2" />
+            </label>
+            <button id="confirmApiButton" class="primary-button api-confirm-button" type="button">Confirm API</button>
+          </section>
+
+          <!-- Camera controls -->
+          <div class="camera-toolbar">
+            <div class="camera-actions">
+              <button id="startButton" class="primary-button" type="button">▶ Start Live Feed</button>
+              <button id="stopButton" class="ghost-button" type="button" disabled>■ Stop</button>
+              <button id="saveButton" class="warning-button" type="button" disabled>⬇ Log Entry</button>
+            </div>
+          </div>
+
+          <!-- Video + overlay canvas -->
+          <div class="camera-stage" id="cameraStage">
+            <video id="video" autoplay playsinline muted></video>
+            <canvas id="overlay"></canvas>
+            <!-- Violation flash overlay -->
+            <div id="violationFlash" class="violation-flash" aria-hidden="true"></div>
+            <div id="cameraEmptyState" class="empty-state">
+              <strong>Live Feed Ready</strong>
+              <span>Confirm API to start scanning</span>
+            </div>
+          </div>
+
+          <!-- Scan metrics strip -->
+          <div class="scan-strip">
+            <div>
+              <span class="metric-label">Scan Status</span>
+              <strong id="frameStatus">Idle</strong>
+            </div>
+            <div>
+              <span class="metric-label">Processing</span>
+              <strong id="processingTime">-- ms</strong>
+            </div>
+            <div>
+              <span class="metric-label">Detections</span>
+              <strong id="detectionCount">0</strong>
+            </div>
+            <div>
+              <span class="metric-label">Gender</span>
+              <strong id="genderDisplay">--</strong>
+            </div>
+            <div class="scan-strip-wide">
+              <span class="metric-label">Active Model</span>
+              <strong id="activeModelDisplay">--</strong>
+            </div>
+          </div>
+        </section>
+
+        <!-- ── RIGHT COLUMN: decision panel ──────────────────────────── -->
+        <aside class="decision-panel" aria-label="Decision panel">
+
+          <!-- Gate decision card -->
+          <div id="decisionCard" class="decision-card neutral">
+            <span class="decision-label">Gate Decision</span>
+            <strong id="decisionText">WAITING</strong>
+          </div>
+
+          <!-- Violation reasons -->
+          <section class="panel-block">
+            <div class="panel-heading">
+              <h2>Violation Reasons</h2>
+              <span id="reasonCount">0</span>
+            </div>
+            <ul id="reasonList" class="reason-list">
+              <li>No active check</li>
+            </ul>
+          </section>
+
+          <!-- Detected labels -->
+          <section class="panel-block">
+            <div class="panel-heading">
+              <h2>Detected Labels</h2>
+              <span id="labelCount">0</span>
+            </div>
+            <div id="labelList" class="label-list">
+              <span class="muted-chip">No detections</span>
+            </div>
+          </section>
+
+          <!-- Event log -->
+          <section class="panel-block log-block">
+            <div class="panel-heading">
+              <h2>Recent Checks</h2>
+              <button id="clearLogButton" class="text-button" type="button">Clear</button>
+            </div>
+            <ol id="eventLog" class="event-log"></ol>
+          </section>
+        </aside>
+      </main>
+    </div>
+
+    <script>
+      (() => {
+        const clock = document.querySelector("#clock");
+        const tick = () => {
+          clock.textContent = new Date().toLocaleTimeString("en-US", {
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+          });
+        };
+        tick();
+        window.setInterval(tick, 1000);
+      })();
+    </script>
+    <script src="/static/app.js?v=4"></script>
+  </body>
+</html>

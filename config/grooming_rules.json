@@ -1,0 +1,78 @@
+{
+  "confidence_threshold": 0.35,
+  "labels": {
+    "improper_haircut_female": [
+      "improper_haircut_female",
+      "improper_haircut_f",
+      "improper_female_haircut",
+      "bad_haircut_female",
+      "haircut_violation_female"
+    ],
+    "improper_haircut_male": [
+      "improper_haircut_male",
+      "improper_haircut_m",
+      "improper_male_haircut",
+      "bad_haircut_male",
+      "haircut_violation_male",
+      "long_hair_male",
+      "unkempt_hair_male"
+    ],
+    "proper_haircut_female": [
+      "proper_haircut_female",
+      "proper_haircut_f",
+      "proper_female_haircut",
+      "acceptable_haircut_female",
+      "neat_haircut_female"
+    ],
+    "proper_haircut_male": [
+      "proper_haircut_male",
+      "proper_haircut_m",
+      "proper_male_haircut",
+      "acceptable_haircut_male",
+      "neat_haircut_male"
+    ],
+    "headwear": [
+      "headwear",
+      "headwear_detected",
+      "hat",
+      "cap",
+      "hood",
+      "bonnet",
+      "beanie",
+      "helmet",
+      "hat_detected",
+      "cap_detected"
+    ],
+    "no_headwear": [
+      "no_headwear",
+      "no_hat",
+      "without_headwear"
+    ],
+    "bright_dyed_hair": [
+      "dyed_bright_color",
+      "bright_dyed_hair",
+      "bright_hair",
+      "dyed_hair",
+      "colored_hair",
+      "red_hair",
+      "blue_hair",
+      "pink_hair",
+      "blonde_hair",
+      "bleached_hair",
+      "unnatural_hair_color"
+    ],
+    "natural_hair_color": [
+      "natural_hair_color",
+      "natural_hair",
+      "black_hair",
+      "brown_hair",
+      "dark_hair"
+    ]
+  },
+  "messages": {
+    "improper_haircut_female": "Improper haircut detected (female).",
+    "improper_haircut_male": "Improper haircut detected (male).",
+    "headwear": "Headwear detected — not allowed.",
+    "bright_dyed_hair": "Bright or dyed hair color detected."
+  }
+}
