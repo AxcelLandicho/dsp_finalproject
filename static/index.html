@@ -3,145 +3,382 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Student Head Grooming Gate Check</title>
-    <link rel="stylesheet" href="/static/styles.css" />
+    <title>ComplianceVision — School Gate Compliance</title>
+    <link rel="stylesheet" href="/static/styles.css?v=8" />
   </head>
   <body>
-    <div class="app-shell">
-      <header class="topbar">
-        <div class="brand-lockup">
-          <div class="school-seal" aria-hidden="true">SG</div>
-          <div>
-            <h1>School Gate Head Grooming Check</h1>
-            <p id="modelStatus">Checking inference service…</p>
+
+    <!-- ── LOGIN PAGE ───────────────────────────────────────────── -->
+    <div id="loginPage" class="login-overlay">
+      <div class="login-card">
+
+        <div class="login-brand">
+          <div class="login-badge">
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              <polyline points="9 12 11 14 15 10"/>
+            </svg>
           </div>
-          <span class="version-badge" title="System version">v2.0.0</span>
+          <div>
+            <div class="login-title">ComplianceVision</div>
+            <div class="login-subtitle">School Gate Compliance System</div>
+          </div>
         </div>
-        <div class="topbar-actions">
+
+        <div class="login-divider"></div>
+
+        <div class="login-fields">
+          <div class="field-group">
+            <label for="loginUsername">Username</label>
+            <input id="loginUsername" type="text" autocomplete="username"
+                   placeholder="Enter username" />
+          </div>
+          <div class="field-group">
+            <label for="loginPassword">Password</label>
+            <input id="loginPassword" type="password" autocomplete="current-password"
+                   placeholder="Enter password" />
+          </div>
+        </div>
+
+        <div id="loginError" class="login-error"></div>
+
+        <button id="loginBtn" class="btn btn-primary btn-full">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+          Sign In
+        </button>
+
+        <div class="login-demo-hint">
+          Demo credentials &nbsp;·&nbsp; <strong>admin</strong> / <strong>admin</strong>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="app-shell">
+
+      <!-- ── TOPBAR ─────────────────────────────────────────────── -->
+      <header class="topbar">
+
+        <div class="brand">
+          <div class="brand-mark">CV</div>
+          <div class="brand-text">
+            <div class="brand-name">ComplianceVision</div>
+            <div class="brand-sub">School Gate Compliance</div>
+          </div>
+        </div>
+
+        <nav class="tab-nav" role="tablist" aria-label="Main navigation">
+          <button class="tab-btn active" data-tab="home" role="tab">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            Home
+          </button>
+          <button class="tab-btn" data-tab="scanner" role="tab">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+            Scanner
+          </button>
+          <button class="tab-btn" data-tab="settings" role="tab">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            Settings
+          </button>
+        </nav>
+
+        <div class="topbar-end">
+          <span id="topbarUser" class="topbar-user">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            Admin
+          </span>
+          <button id="logoutBtn" class="btn-icon" title="Sign out">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          </button>
+          <div id="apiStatusDot" class="api-dot" title="API not configured"></div>
+          <button id="themeToggle" class="btn-icon" title="Toggle dark mode">
+            <!-- moon shown in light mode (default) -->
+            <svg id="themeIconMoon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            <!-- sun shown in dark mode -->
+            <svg id="themeIconSun"  width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          </button>
           <div id="clock" class="clock">--:--:--</div>
         </div>
+
       </header>
 
-      <main class="workspace">
-        <!-- ── LEFT COLUMN: camera + controls ────────────────────────── -->
-        <section class="camera-panel" aria-label="Photo check station">
+      <!-- ── HOME TAB ───────────────────────────────────────────── -->
+      <div id="tab-home" class="tab-panel active" role="tabpanel">
+        <div class="home-page">
 
-          <!-- API settings -->
-          <section class="settings-panel" aria-label="Inference settings">
-            <label>
-              <span>API Key</span>
-              <input id="roboflowApiKey" type="password" autocomplete="off" placeholder="Roboflow API key" />
-            </label>
-            <label>
-              <span>Project ID / Version</span>
-              <input id="roboflowProjectId" type="text" autocomplete="off" placeholder="project-slug/2" />
-            </label>
-            <button id="confirmApiButton" class="primary-button api-confirm-button" type="button">Confirm API</button>
-          </section>
+          <!-- Hero -->
+          <div class="home-hero">
+            <div class="home-badge">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                <polyline points="9 12 11 14 15 10"/>
+              </svg>
+            </div>
+            <h1 class="home-title">ComplianceVision</h1>
+            <p class="home-subtitle">School Gate Grooming &amp; Headwear Compliance System</p>
+            <p class="home-desc">
+              AI-powered live detection at school entry points. Instantly identify headwear violations,
+              improper haircuts, and non-compliant hair colors — powered by your Roboflow inference model.
+            </p>
 
-          <!-- Camera controls -->
-          <div class="camera-toolbar">
-            <div class="camera-actions">
-              <button id="startButton" class="primary-button" type="button">▶ Start Live Feed</button>
-              <button id="stopButton" class="ghost-button" type="button" disabled>■ Stop</button>
-              <button id="saveButton" class="warning-button" type="button" disabled>⬇ Log Entry</button>
+            <div id="homeApiStatus" class="home-status-badge home-status--warn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              <span>Model not configured — open Settings to connect your Roboflow model</span>
+            </div>
+
+            <div class="home-actions">
+              <button id="homeStartBtn" class="btn btn-primary btn-lg">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+                Start Scanning
+              </button>
+              <button id="homeSettingsBtn" class="btn btn-outline btn-lg">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                Configure Model
+              </button>
             </div>
           </div>
 
-          <!-- Video + overlay canvas -->
-          <div class="camera-stage" id="cameraStage">
-            <video id="video" autoplay playsinline muted></video>
-            <canvas id="overlay"></canvas>
-            <!-- Violation flash overlay -->
-            <div id="violationFlash" class="violation-flash" aria-hidden="true"></div>
-            <div id="cameraEmptyState" class="empty-state">
-              <strong>Live Feed Ready</strong>
-              <span>Confirm API to start scanning</span>
+          <!-- Feature cards -->
+          <div class="home-features">
+            <div class="feature-card">
+              <div class="feature-icon feature-icon--blue">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <path d="M2 12h20M4 12c0-4.4 3.6-8 8-8s8 3.6 8 8"/>
+                  <rect x="2" y="12" width="20" height="4" rx="2"/>
+                </svg>
+              </div>
+              <h3>Headwear Detection</h3>
+              <p>Automatically flags caps, hats, and any headwear worn by students at the school gate entrance.</p>
+            </div>
+            <div class="feature-card">
+              <div class="feature-icon feature-icon--teal">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/>
+                  <line x1="20" y1="4" x2="8.12" y2="15.88"/>
+                  <line x1="14.47" y1="14.48" x2="20" y2="20"/>
+                  <line x1="8.12" y1="8.12" x2="12" y2="12"/>
+                </svg>
+              </div>
+              <h3>Haircut Compliance</h3>
+              <p>Checks male and female haircut styles against school grooming standards with gender-aware detection.</p>
+            </div>
+            <div class="feature-card">
+              <div class="feature-icon feature-icon--violet">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>
+                </svg>
+              </div>
+              <h3>Hair Color Policy</h3>
+              <p>Detects bright or dyed hair colors that violate the school's natural hair color dress code policy.</p>
             </div>
           </div>
 
-          <!-- Scan metrics strip -->
-          <div class="scan-strip">
-            <div>
-              <span class="metric-label">Scan Status</span>
-              <strong id="frameStatus">Idle</strong>
-            </div>
-            <div>
-              <span class="metric-label">Processing</span>
-              <strong id="processingTime">-- ms</strong>
-            </div>
-            <div>
-              <span class="metric-label">Detections</span>
-              <strong id="detectionCount">0</strong>
-            </div>
-            <div>
-              <span class="metric-label">Gender</span>
-              <strong id="genderDisplay">--</strong>
-            </div>
-            <div class="scan-strip-wide">
-              <span class="metric-label">Active Model</span>
-              <strong id="activeModelDisplay">--</strong>
+          <!-- Compliance rules reference -->
+          <div class="home-rules">
+            <h4>Violation Rules at a Glance</h4>
+            <div class="rules-grid">
+              <div class="rule-item rule-item--fail">
+                <span class="rule-dot"></span>
+                <span>Headwear detected</span>
+              </div>
+              <div class="rule-item rule-item--fail">
+                <span class="rule-dot"></span>
+                <span>Improper haircut (male)</span>
+              </div>
+              <div class="rule-item rule-item--fail">
+                <span class="rule-dot"></span>
+                <span>Improper haircut (female)</span>
+              </div>
+              <div class="rule-item rule-item--fail">
+                <span class="rule-dot"></span>
+                <span>Dyed or bright-colored hair</span>
+              </div>
+              <div class="rule-item rule-item--pass">
+                <span class="rule-dot"></span>
+                <span>Proper haircut — PASS</span>
+              </div>
+              <div class="rule-item rule-item--pass">
+                <span class="rule-dot"></span>
+                <span>Natural hair color — PASS</span>
+              </div>
+              <div class="rule-item rule-item--pass">
+                <span class="rule-dot"></span>
+                <span>No headwear — PASS</span>
+              </div>
             </div>
           </div>
-        </section>
 
-        <!-- ── RIGHT COLUMN: decision panel ──────────────────────────── -->
-        <aside class="decision-panel" aria-label="Decision panel">
+        </div>
+      </div>
 
-          <!-- Gate decision card -->
-          <div id="decisionCard" class="decision-card neutral">
-            <span class="decision-label">Gate Decision</span>
-            <strong id="decisionText">WAITING</strong>
+      <!-- ── SCANNER TAB ────────────────────────────────────────── -->
+      <div id="tab-scanner" class="tab-panel" role="tabpanel">
+        <div class="scanner-layout">
+
+          <!-- Camera column -->
+          <section class="camera-col">
+            <div class="controls-bar">
+              <button id="startButton" class="btn btn-primary" disabled>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+                Start Live Feed
+              </button>
+              <button id="stopButton" class="btn btn-ghost" disabled>
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+                Stop
+              </button>
+              <div class="controls-divider"></div>
+              <label id="uploadLabel" class="btn btn-ghost upload-label" title="Analyze a still image file">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                Upload Image
+                <input id="imageUpload" type="file" accept="image/*" style="display:none" />
+              </label>
+              <div class="controls-divider"></div>
+              <button id="saveButton" class="btn btn-primary-soft" disabled>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Log Entry
+              </button>
+            </div>
+
+            <div class="camera-stage" id="cameraStage">
+              <video id="video" autoplay playsinline muted></video>
+              <img id="uploadPreview" class="upload-preview" alt="" />
+              <canvas id="overlay"></canvas>
+              <div id="cameraNotif" class="camera-notif hidden"></div>
+              <div id="cameraEmpty" class="empty-state">
+                <div class="empty-icon">
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                </div>
+                <strong>Camera Offline</strong>
+                <span id="emptyHint">Configure your model in Settings to begin</span>
+                <div id="dropZone" class="drop-zone hidden">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                  Drop an image here to analyze
+                </div>
+              </div>
+            </div>
+
+            <div class="metrics-bar">
+              <div class="metric">
+                <span class="metric-label">Status</span>
+                <strong id="frameStatus">Idle</strong>
+              </div>
+              <div class="metric">
+                <span class="metric-label">Latency</span>
+                <strong id="processingTime">--</strong>
+              </div>
+              <div class="metric">
+                <span class="metric-label">Detections</span>
+                <strong id="detectionCount">0</strong>
+              </div>
+              <div class="metric">
+                <span class="metric-label">Gender</span>
+                <strong id="genderDisplay">--</strong>
+              </div>
+            </div>
+          </section>
+
+          <!-- Decision column -->
+          <aside class="decision-col">
+            <div id="decisionCard" class="decision-card">
+              <span class="decision-label">Gate Decision</span>
+              <strong id="decisionText">WAITING</strong>
+            </div>
+
+            <div class="info-block">
+              <div class="block-header">
+                <h2>Violation Reasons</h2>
+                <span id="reasonCount" class="badge">0</span>
+              </div>
+              <ul id="reasonList" class="reason-list">
+                <li class="item-muted">No active check</li>
+              </ul>
+            </div>
+
+            <div class="info-block">
+              <div class="block-header">
+                <h2>Detected Labels</h2>
+                <span id="labelCount" class="badge">0</span>
+              </div>
+              <div id="labelList" class="label-list">
+                <span class="chip chip-neutral">No detections</span>
+              </div>
+            </div>
+
+            <div class="info-block log-block">
+              <div class="block-header">
+                <h2>Recent Checks</h2>
+                <button id="clearLogBtn" class="btn-link">Clear</button>
+              </div>
+              <ol id="eventLog" class="event-log"></ol>
+            </div>
+          </aside>
+
+        </div>
+      </div>
+
+      <!-- ── SETTINGS TAB ───────────────────────────────────────── -->
+      <div id="tab-settings" class="tab-panel" role="tabpanel">
+        <div class="settings-page">
+          <div class="settings-card">
+
+            <div class="settings-section-header">
+              <h2>Model Configuration</h2>
+              <p>Connect ComplianceVision to your Roboflow inference model.</p>
+            </div>
+
+            <div class="field-group">
+              <label for="roboflowApiKey">API Key</label>
+              <input id="roboflowApiKey" type="password" autocomplete="off"
+                     placeholder="Your Roboflow API key" />
+            </div>
+
+            <div class="field-group">
+              <label for="roboflowProjectId">Project ID / Version</label>
+              <input id="roboflowProjectId" type="text" autocomplete="off"
+                     placeholder="project-slug/2" />
+              <span class="field-hint">Include the version number after a slash — e.g. <code>my-model/3</code></span>
+            </div>
+
+            <button id="confirmApiButton" class="btn btn-primary btn-full">Confirm API</button>
+
+            <div id="settingsStatus" class="settings-status"></div>
+
+            <div class="settings-divider"></div>
+
+            <div class="settings-section-header">
+              <h2>Scan Behavior</h2>
+              <p>Configure detection alerts and cooldown preferences.</p>
+            </div>
+
+            <div class="toggle-row">
+              <div class="toggle-label-group">
+                <strong>Audio Alerts</strong>
+                <span class="field-hint">Play a tone when a violation is detected.</span>
+              </div>
+              <button id="audioToggle" class="toggle-btn on"
+                      role="switch" aria-checked="true" aria-label="Audio alerts"></button>
+            </div>
+
+            <div class="field-group">
+              <label for="cooldownInput">Violation Cooldown (seconds)</label>
+              <input id="cooldownInput" type="number" min="0" max="60" step="1" value="3" />
+              <span class="field-hint">Minimum seconds before the same violation triggers another alert.</span>
+            </div>
+
           </div>
+        </div>
+      </div>
 
-          <!-- Violation reasons -->
-          <section class="panel-block">
-            <div class="panel-heading">
-              <h2>Violation Reasons</h2>
-              <span id="reasonCount">0</span>
-            </div>
-            <ul id="reasonList" class="reason-list">
-              <li>No active check</li>
-            </ul>
-          </section>
-
-          <!-- Detected labels -->
-          <section class="panel-block">
-            <div class="panel-heading">
-              <h2>Detected Labels</h2>
-              <span id="labelCount">0</span>
-            </div>
-            <div id="labelList" class="label-list">
-              <span class="muted-chip">No detections</span>
-            </div>
-          </section>
-
-          <!-- Event log -->
-          <section class="panel-block log-block">
-            <div class="panel-heading">
-              <h2>Recent Checks</h2>
-              <button id="clearLogButton" class="text-button" type="button">Clear</button>
-            </div>
-            <ol id="eventLog" class="event-log"></ol>
-          </section>
-        </aside>
-      </main>
-    </div>
+    </div><!-- /app-shell -->
 
     <script>
       (() => {
-        const clock = document.querySelector("#clock");
-        const tick = () => {
-          clock.textContent = new Date().toLocaleTimeString("en-US", {
-            hour: "2-digit",
-            minute: "2-digit",
-            second: "2-digit",
-          });
-        };
-        tick();
-        window.setInterval(tick, 1000);
+        const el = document.querySelector("#clock");
+        const tick = () => el.textContent = new Date().toLocaleTimeString("en-US",
+          { hour: "2-digit", minute: "2-digit", second: "2-digit" });
+        tick(); setInterval(tick, 1000);
       })();
     </script>
-    <script src="/static/app.js?v=4"></script>
+    <script src="/static/app.js?v=9"></script>
   </body>
 </html>
